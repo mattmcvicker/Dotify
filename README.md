@@ -7,4 +7,4 @@
 ##### EC 1, 2
 
 
-<img src="../Capture.png">
+<img src="./Capture.png">
