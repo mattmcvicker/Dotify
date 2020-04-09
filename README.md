@@ -7,4 +7,4 @@
 ##### EC 1, 2
 
 
-<img src="Dotify/Capture.png">
+<img src="./Dotify/Capture.png">
