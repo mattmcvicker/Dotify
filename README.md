@@ -7,4 +7,4 @@
 ##### EC 1, 2
 
 
-<image alt="Screenshot" src="/Pictures/Capture.jpg" height="500" />
+<image alt="Screenshot" src="../Pictures/Capture.jpg" height="500" />
