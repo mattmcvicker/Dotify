@@ -5,3 +5,6 @@
 ##### This is a low functioning "music player" named Dotify that can alert users if they've skipped or went back on a track, change the number of plays, and change the username.
 
 ##### EC 1, 2
+
+
+<image alt="Screenshot" src"./Pictures/Capture.jpg" height="500" />
