@@ -7,4 +7,4 @@
 ##### EC 1, 2
 
 
-<image alt="Screenshot" src="Desktop/Capture.jpg" height="500" />
+![](Capture.png)
