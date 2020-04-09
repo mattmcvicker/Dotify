@@ -7,4 +7,4 @@
 ##### EC 1, 2
 
 
-![](Capture.png)
+<img src="../Capture.png">
