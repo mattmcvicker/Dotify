@@ -1,36 +1,79 @@
 package com.example.dotify
 
+import android.graphics.Color
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-    var randomNumber = 0;
+    var randomNumber = Random.nextInt(1000, 9999999);
+    var hideUserName = 0;
+    var newUserName = "";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         randomGenerator()
+        play.setOnClickListener { v: View ->
+            randomNumber++;
+            randomGenerator();
+            Log.i("mattmcv", "CLicky");
+        }
+        next.setOnClickListener {v: View ->
+            Toast.makeText(this, "Skipping to next track", Toast.LENGTH_SHORT).show()
+            Log.i("mattmcv", "CLicky");
+        }
+        previous.setOnClickListener {v: View ->
+            Toast.makeText(this, "Skipping to previous track", Toast.LENGTH_SHORT).show()
+        }
+
+        imageView.setOnLongClickListener{v: View ->
+            username.setTextColor(Color.parseColor("#8cfffb"));
+            song.setTextColor(Color.parseColor("#8cfffb"));
+            author.setTextColor(Color.parseColor("#8cfffb"));
+            numPlays.setTextColor(Color.parseColor("#8cfffb"));
+
+            return@setOnLongClickListener true
+        }
+        editUser.visibility = View.INVISIBLE;
+        btnApply.visibility = View.GONE;
+        btnApply.visibility = View.INVISIBLE;
+
     }
 
     private fun randomGenerator() {
-        randomNumber = Random.nextInt(1000, 9999999);
         val randomPlays = findViewById<TextView>(R.id.numPlays);
         numPlays.text = "$randomNumber Plays";
     }
 
-
-    fun changeClicked(view: View) {
-        Log.i("mattmcv", "You have clicked");
-
+    fun applyClicked(view: View) {
+        val editUserName = findViewById<EditText>(R.id.editUser);
+        newUserName = editUserName.getText().toString();
+        if(newUserName != "") {
+            editUser.visibility = View.INVISIBLE;
+            username.visibility = View.VISIBLE;
+            username.text = newUserName;
+            btnchangeUser.visibility = View.VISIBLE;
+            username.text = newUserName;
+            btnApply.visibility = View.GONE;
+            btnApply.visibility = View.INVISIBLE;
+        } //btnApply.visibility = View.;
     }
 
-    
-  //  fun trackNextClicked() {
-    //    Toast.makeText(this, "Next song", Toast.LENGTH_SHORT)
-    //}
+    fun changeClicked(view: View) {
+            editUser.visibility = View.VISIBLE;
+            username.visibility = View.INVISIBLE;
+            btnchangeUser.visibility = View.GONE;
+            btnchangeUser.visibility = View.INVISIBLE;
+            btnApply.visibility = View.VISIBLE;
+
+        Log.i("jack", "Click");
+    }
+
 }
