@@ -16,9 +16,17 @@ class MainActivity : AppCompatActivity() {
     var randomNumber = Random.nextInt(1000, 9999999);
     var hideUserName = 0;
     var newUserName = "";
+
+    companion object {
+        const val NAME_KEY = "NAME_KEY"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val recieveData = intent.getStringArrayExtra(NAME_KEY) //when activity launches, grab intent that launched us, and grab the values with the keys
+
         randomGenerator()
         play.setOnClickListener { v: View ->
             randomNumber++;
