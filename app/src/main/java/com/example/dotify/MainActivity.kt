@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore.Audio.ArtistColumns.ARTIST_KEY
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -18,15 +19,18 @@ class MainActivity : AppCompatActivity() {
     var newUserName = "";
 
     companion object {
-        const val NAME_KEY = "NAME_KEY"
+        const val ARTIST_KEY = "ARTIST_KEY"
+        const val SONG_KEY = "SONG_KEY"
+        const val LARGE_ID = "LARGE_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recieveData = intent.getStringArrayExtra(NAME_KEY) //when activity launches, grab intent that launched us, and grab the values with the keys
-
+        author.text = intent.getStringExtra(ARTIST_KEY) //when activity launches, grab intent that launched us, and grab the values with the keys
+        song.text = intent.getStringExtra(SONG_KEY)
+        imageView.setImageResource(intent.getIntExtra(LARGE_ID, 0))
         randomGenerator()
         play.setOnClickListener { v: View ->
             randomNumber++;
@@ -85,3 +89,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
