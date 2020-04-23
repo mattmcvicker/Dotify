@@ -53,6 +53,11 @@
         android:layout_height="wrap_content"
         android:text="Rush Over Me"
         android:textSize="30sp"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -101,11 +106,13 @@
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="#c3c3c3"
+        android:maxHeight="100dp"
         android:src="@drawable/ic_skip_next_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/play"
-        app:layout_constraintTop_toBottomOf="@+id/numPlays" />
+        app:layout_constraintTop_toBottomOf="@+id/numPlays"
+        app:layout_constraintVertical_bias="0.564" />
 
     <ImageButton
         android:id="@+id/previous"
@@ -117,7 +124,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/play"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numPlays" />
+        app:layout_constraintTop_toBottomOf="@+id/numPlays"
+        />
 
     <EditText
         android:id="@+id/editUser"

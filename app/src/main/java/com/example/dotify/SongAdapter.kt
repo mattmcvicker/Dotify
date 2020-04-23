@@ -30,9 +30,6 @@ class SongAdapter(listOfSongs: List<Song>): RecyclerView.Adapter<SongAdapter.Son
 
     ///////////////////////////////////////////////////////////////
     fun change(newSongs: List<Song>) {
-        //listOfSongs = newSongs
-
-        //notifyDataSetChanged()
         val callback = SongDiffCallback(listOfSongs, newSongs)
         val diffResult = DiffUtil.calculateDiff(callback)
         diffResult.dispatchUpdatesTo(this)
