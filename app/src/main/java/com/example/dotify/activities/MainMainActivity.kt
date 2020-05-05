@@ -18,17 +18,40 @@ import kotlinx.android.synthetic.main.activity_song_list.btnShuffle
 import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
 
  class MainMainActivity : AppCompatActivity(), OnSongClickListener {
-     private var currentSong = SongDataProvider.createRandomSong()
+     companion object {
+         const val KEEP_ORDER = "LIstorder"
+         const val KEEP_MINI = "miniplayer"
+         const val KEEP_SONGNAME = "songname"
+         const val KEEP_SHUFFLE = "shuffle"
+     }
 
-     //private lateinit var listOfSongs: List<Song>
+     private var currentSong = SongDataProvider.createRandomSong()
+     private var saveInstanceOrder = ""
+     private var saveInstanceSong = ""
+
+     override fun onSaveInstanceState(outState: Bundle) {
+         outState.putCharSequence(KEEP_SONGNAME, saveInstanceSong)
+         super.onSaveInstanceState(outState)
+
+     }
+
      override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
          setContentView(R.layout.activity_main_main)
+//////////////////////////////
+         if (savedInstanceState != null) { //
+             with(savedInstanceState) {
+                 saveInstanceSong = getString(KEEP_SONGNAME, "")
+             }
+         } else {
+             saveInstanceSong = ""
+         }
 
          var listOfSongs: List<Song> = SongDataProvider.getAllSongs()
          listOfSongs = listOfSongs.toMutableList()
 
          miniPLayerStuff()
+         miniplayertext.text = saveInstanceSong
          if (supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null) {
              val songListFragment = SongListFragment.newInstance(ArrayList(listOfSongs))
              supportFragmentManager
@@ -62,14 +85,14 @@ import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
      }
 
      override fun onSongClicked(song: Song) {
-         miniplayertext.text = song.title + " - " + song.artist //////////INSERT MAYBE
+         saveInstanceSong = song.title + " - " + song.artist
+         miniplayertext.text = saveInstanceSong
          currentSong = song
      }
 
      private fun miniPLayerStuff() {
          miniPlayer.setOnClickListener {
              //val intent = Intent(this, MainActivity::class.java) //create intent
-             miniPlayerInvisible()
                  miniPlayerInvisible()
                  val nowPlayingFragment = NowPlayingFragment.newInstance(currentSong)
                  supportFragmentManager

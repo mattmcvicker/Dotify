@@ -30,7 +30,8 @@ class SongListFragment: Fragment() {
     private var onSongClickListener: OnSongClickListener? = null
 
     companion object {
-
+        const val KEEP_ORDER = "LIstorder"
+        const val KEEP_SHUFFLE = "shuffle"
         val TAG: String = SongListFragment::class.java.simpleName
 
         var currentSong = SongDataProvider.createRandomSong()
@@ -48,6 +49,12 @@ class SongListFragment: Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelableArrayList(KEEP_ORDER, listOfSongs?.toList()?.let { ArrayList(it) })
+        super.onSaveInstanceState(outState)
+
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -60,10 +67,16 @@ class SongListFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) { //for data before UI is shown
         super.onCreate(savedInstanceState)
 
+        if (savedInstanceState != null) { //
+            with(savedInstanceState) {
+                listOfSongs = getParcelableArrayList(KEEP_ORDER)
+            }
+        } else {
+            listOfSongs = null
+        }
+
         var oldSongs = getArguments()?.getParcelableArrayList<Song>(SONG_LIST)
         listOfSongs= oldSongs?.toList()
-
-
     }
 
     override fun onCreateView(
@@ -77,12 +90,9 @@ class SongListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         songAdapter = listOfSongs?.let { SongAdapter(it) }!!
-//        var currentSong = SongDataProvider.createRandomSong()
         shuffleList(songAdapter)
-        //val holdClickedSong = onSongClicked(currentSong)
+
             songAdapter.onSongClickListener = { item ->
-                ///// This is the object that is actually being used
-                Log.i("mattmcv", item.toString());
                 onSongClickListener?.onSongClicked(item)
                 currentSong = item
         }
