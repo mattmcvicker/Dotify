@@ -7,5 +7,5 @@
 ##### EC Animate Shuffle
 
 
-<img src="./Capture4.PNG">
-<img src="./Capture5.PNG">
+<img src="./capture4.PNG">
+<img src="./image5.PNG">
