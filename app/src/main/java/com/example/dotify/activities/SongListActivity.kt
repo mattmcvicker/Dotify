@@ -1,4 +1,4 @@
-package com.example.dotify
+package com.example.dotify.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
-import com.example.dotify.MainActivity.Companion.LARGE_ID
-import com.example.dotify.MainActivity.Companion.ARTIST_KEY
-import com.example.dotify.MainActivity.Companion.SONG_KEY
+import com.example.dotify.R
+import com.example.dotify.SongAdapter
+import com.example.dotify.activities.MainActivity.Companion.LARGE_ID
+import com.example.dotify.activities.MainActivity.Companion.ARTIST_KEY
+import com.example.dotify.activities.MainActivity.Companion.SONG_KEY
 import kotlinx.android.synthetic.main.activity_song_list.*
 
 class SongListActivity : AppCompatActivity() {
@@ -34,14 +36,14 @@ class SongListActivity : AppCompatActivity() {
         songAdapter.onSongClickListener = { item ->
             ///// This is the object that is actually being used
             Log.i("mattmcv", item.toString());
-            miniplayertext.text = item.title + " - " + item.artist
+            miniplayertext.text = item.title + " - " + item.artist //////////INSERT MAYBE
             currentSong = item
         }
 
         songList.adapter = songAdapter
         ////////////////////////////////////////////////////////////////////////
 
-        miniplayer.setOnClickListener {
+        miniPlayer.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java) //create intent
             Log.i("mattmcv", currentSong.toString());
             intent.putExtra(ARTIST_KEY, currentSong.artist) //give data, each assigned with a key

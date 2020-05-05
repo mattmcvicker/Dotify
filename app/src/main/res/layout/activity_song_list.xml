@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SongListActivity"
+    tools:context=".activities.SongListActivity"
     >
 
 
@@ -25,15 +25,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Shuffle"
-        app:layout_constraintBottom_toBottomOf="@+id/miniplayer"
-        app:layout_constraintTop_toTopOf="@+id/miniplayer"
+        app:layout_constraintBottom_toBottomOf="@+id/miniPlayer"
+        app:layout_constraintTop_toTopOf="@+id/miniPlayer"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <View
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:id="@+id/miniplayer"
+        android:id="@+id/miniPlayer"
         android:background="@color/riptide"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -44,9 +44,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/miniplayertext"
-        app:layout_constraintLeft_toLeftOf="@+id/miniplayer"
-        app:layout_constraintBottom_toBottomOf="@id/miniplayer"
-        app:layout_constraintTop_toTopOf="@id/miniplayer"
+        app:layout_constraintLeft_toLeftOf="@+id/miniPlayer"
+        app:layout_constraintBottom_toBottomOf="@id/miniPlayer"
+        app:layout_constraintTop_toTopOf="@id/miniPlayer"
         android:layout_marginLeft="10dp"
         android:ellipsize="end"
         android:maxLines="1"
