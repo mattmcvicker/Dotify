@@ -24,11 +24,15 @@ import java.util.*
 class SongListFragment: Fragment() {
     private lateinit var songAdapter : SongAdapter
 
+
     private var listOfSongs : List<Song>? = null
 
     private var onSongClickListener: OnSongClickListener? = null
 
     companion object {
+
+        val TAG: String = SongListFragment::class.java.simpleName
+
         var currentSong = SongDataProvider.createRandomSong()
 
         const val SONG_LIST = "SongList"

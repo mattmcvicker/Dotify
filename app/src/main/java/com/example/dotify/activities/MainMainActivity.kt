@@ -12,6 +12,8 @@ import com.example.dotify.fragments.NowPlayingFragment
 import com.example.dotify.fragments.OnSongClickListener
 import com.example.dotify.fragments.SongListFragment
 import kotlinx.android.synthetic.main.activity_main_main.*
+import kotlinx.android.synthetic.main.activity_main_main.miniplayertext
+import kotlinx.android.synthetic.main.activity_song_list.*
 import kotlinx.android.synthetic.main.activity_song_list.btnShuffle
 import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
 
@@ -26,14 +28,16 @@ import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
         listOfSongs = listOfSongs.toMutableList()
 
          miniPLayerStuff()
+        if (supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) == null) {
+            val songListFragment = SongListFragment.newInstance(ArrayList(listOfSongs))
 
-        val songListFragment = SongListFragment.newInstance(ArrayList(listOfSongs))
-        //val songListFragment = SongListFragment(); //Fragment
+            supportFragmentManager
+                .beginTransaction() //
+                .add(R.id.fragContainer, songListFragment, SongListFragment.TAG) //add fragment conatiner, and the fragment
+                .commit()
+        } else {
 
-        supportFragmentManager
-            .beginTransaction() //
-            .add(R.id.fragContainer, songListFragment) //add fragment conatiner, and the fragment
-            .commit()
+        }
 
          supportFragmentManager.addOnBackStackChangedListener {
              val hasBackStack =supportFragmentManager.backStackEntryCount > 0
@@ -41,25 +45,13 @@ import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
              } else {
                  supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                 miniPlayerVisible()
              }
          }
     }
 
      override fun onSupportNavigateUp(): Boolean {
-//         val nowPlayingFragment = supportFragmentManager.fragments.find { fragment -> fragment is NowPlayingFragment }
-
-//         if(nowPlayingFragment != null) {
-//             supportFragmentManager
-//                 .beginTransaction()
-//                 .remove(nowPlayingFragment)
-//                 .commit()
-//
-//             return true
-//         }
          supportFragmentManager.popBackStack()
-         miniPlayer.setVisibility(View.VISIBLE)
-         btnShuffle.setVisibility(View.VISIBLE)
-         miniplayertext.setVisibility(View.VISIBLE)
          return super.onNavigateUp()
      }
 
@@ -75,15 +67,17 @@ import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
              btnShuffle.setVisibility(View.GONE)
              miniplayertext.setVisibility(View.GONE)
              val nowPlayingFragment = NowPlayingFragment.newInstance(currentSong)
-             supportFragmentManager
-                 .beginTransaction()
-                 .add(R.id.fragContainer, nowPlayingFragment)
-                 .addToBackStack(NowPlayingFragment.TAG)
-                 .commit()
-//             intent.putExtra(MainActivity.ARTIST_KEY, currentSong.artist) //give data, each assigned with a key
-//             intent.putExtra(MainActivity.SONG_KEY, currentSong.title) //give data, each assigned with a key
-//             intent.putExtra(MainActivity.LARGE_ID, currentSong.largeImageID)
-//             startActivity(intent) // start that activity with that data
+                 supportFragmentManager
+                     .beginTransaction()
+                     .add(R.id.fragContainer, nowPlayingFragment, NowPlayingFragment.TAG)
+                     .addToBackStack(NowPlayingFragment.TAG)
+                     .commit()
          }
+     }
+
+     private fun miniPlayerVisible() {
+         miniPlayer.setVisibility(View.VISIBLE)
+         btnShuffle.setVisibility(View.VISIBLE)
+         miniplayertext.setVisibility(View.VISIBLE)
      }
 }

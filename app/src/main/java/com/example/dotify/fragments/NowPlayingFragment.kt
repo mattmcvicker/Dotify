@@ -24,6 +24,10 @@ class NowPlayingFragment : Fragment() {
         const val SONG_NAME = "SONG"
         const val SONG_ARTIST = "ARTIST"
         const val SONG_ID = "ID"
+        const val RANDOM_COUNT = "RANDOM"
+        const val ARTIST_KEY = "ARTIST_KEY"
+        const val SONG_KEY = "SONG_KEY"
+        const val LARGE_ID = "LARGE_ID"
 
         fun newInstance(currentSong: Song): NowPlayingFragment {
             val args = Bundle().apply {
@@ -37,16 +41,16 @@ class NowPlayingFragment : Fragment() {
             }
         }
 
-//        const val ARTIST_KEY = "ARTIST_KEY"
-//        const val SONG_KEY = "SONG_KEY"
-//        const val LARGE_ID = "LARGE_ID"
-//        const val RANDOM_NUMBER = "RANDOM_NUMBER"
     }
     private var randomNumber = 0
     private var saveInstanceAuthor = ""
     private var saveInstanceSong = ""
     private var saveInstanceLargeID = 0
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(RANDOM_COUNT, randomNumber)
+        super.onSaveInstanceState(outState)
+    }
     override fun onCreate(savedInstanceState: Bundle?) { //for data before UI is shown
         super.onCreate(savedInstanceState)
 
@@ -54,10 +58,10 @@ class NowPlayingFragment : Fragment() {
 
         if (savedInstanceState != null) { //
             with(savedInstanceState) {
-                saveInstanceAuthor = getString(MainActivity.ARTIST_KEY, "")
-                saveInstanceSong = getString(MainActivity.SONG_KEY, "")
-                saveInstanceLargeID = getInt(MainActivity.LARGE_ID, -1)
-                randomNumber = getInt(MainActivity.RANDOM_NUMBER, -1)
+                saveInstanceAuthor = getString(ARTIST_KEY, "")
+                saveInstanceSong = getString(SONG_KEY, "")
+                saveInstanceLargeID = getInt(LARGE_ID, -1)
+                randomNumber = getInt(RANDOM_COUNT, -1)
             }
         } else {
             saveInstanceAuthor = ""
@@ -107,6 +111,13 @@ class NowPlayingFragment : Fragment() {
         author.text = arguments?.getString(SONG_ARTIST)
         song.text = arguments?.getString(SONG_NAME)
         arguments?.getInt(SONG_ID)?.let { imageView.setImageResource(it) }
+    }
+
+    fun reupdate(song: Song) {
+        this.saveInstanceSong = song.title
+        this.saveInstanceAuthor = song.artist
+        this.saveInstanceLargeID = song.largeImageID
+        updateSong()
     }
 
 
