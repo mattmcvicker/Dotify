@@ -18,26 +18,31 @@ import kotlinx.android.synthetic.main.activity_song_list.btnShuffle
 import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
 
  class MainMainActivity : AppCompatActivity(), OnSongClickListener {
-    private var currentSong = SongDataProvider.createRandomSong()
-     //private lateinit var listOfSongs: List<Song>
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_main)
+     private var currentSong = SongDataProvider.createRandomSong()
 
-        var listOfSongs: List<Song> = SongDataProvider.getAllSongs()
-        listOfSongs = listOfSongs.toMutableList()
+     //private lateinit var listOfSongs: List<Song>
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_main_main)
+
+         var listOfSongs: List<Song> = SongDataProvider.getAllSongs()
+         listOfSongs = listOfSongs.toMutableList()
 
          miniPLayerStuff()
-        if (supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) == null) {
-            val songListFragment = SongListFragment.newInstance(ArrayList(listOfSongs))
-
-            supportFragmentManager
-                .beginTransaction() //
-                .add(R.id.fragContainer, songListFragment, SongListFragment.TAG) //add fragment conatiner, and the fragment
-                .commit()
-        } else {
-
-        }
+         if (supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null) {
+             val songListFragment = SongListFragment.newInstance(ArrayList(listOfSongs))
+             supportFragmentManager
+                 .beginTransaction() //
+                 .add(
+                     R.id.fragContainer,
+                     songListFragment,
+                     SongListFragment.TAG
+                 ) //add fragment conatiner, and the fragment
+                 .commit()
+         } else if (supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) != null) {
+             miniPlayerInvisible()
+             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+         }
 
          supportFragmentManager.addOnBackStackChangedListener {
              val hasBackStack =supportFragmentManager.backStackEntryCount > 0
@@ -46,6 +51,7 @@ import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
              } else {
                  supportActionBar?.setDisplayHomeAsUpEnabled(false)
                  miniPlayerVisible()
+                 onSupportNavigateUp()
              }
          }
     }
@@ -63,10 +69,9 @@ import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
      private fun miniPLayerStuff() {
          miniPlayer.setOnClickListener {
              //val intent = Intent(this, MainActivity::class.java) //create intent
-             miniPlayer.setVisibility(View.GONE)
-             btnShuffle.setVisibility(View.GONE)
-             miniplayertext.setVisibility(View.GONE)
-             val nowPlayingFragment = NowPlayingFragment.newInstance(currentSong)
+             miniPlayerInvisible()
+                 miniPlayerInvisible()
+                 val nowPlayingFragment = NowPlayingFragment.newInstance(currentSong)
                  supportFragmentManager
                      .beginTransaction()
                      .add(R.id.fragContainer, nowPlayingFragment, NowPlayingFragment.TAG)
@@ -80,4 +85,11 @@ import kotlinx.android.synthetic.main.activity_song_list.miniPlayer
          btnShuffle.setVisibility(View.VISIBLE)
          miniplayertext.setVisibility(View.VISIBLE)
      }
+
+     private fun miniPlayerInvisible()  {
+         miniPlayer.setVisibility(View.GONE)
+         btnShuffle.setVisibility(View.GONE)
+         miniplayertext.setVisibility(View.GONE)
+     }
+
 }

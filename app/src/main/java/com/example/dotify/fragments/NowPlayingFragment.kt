@@ -103,7 +103,6 @@ class NowPlayingFragment : Fragment() {
         }
     }
     fun randomGenerator() {
-        //val randomPlays = findViewById<TextView>(R.id.numPlays);
         numPlays.text = "$randomNumber Plays";
     }
 
