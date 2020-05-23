@@ -1,20 +1,15 @@
 package com.example.dotify.fragments
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ericchee.songdataprovider.Song
-import com.ericchee.songdataprovider.SongDataProvider
 import com.example.dotify.R
-import com.example.dotify.activities.MainActivity
 import kotlinx.android.synthetic.main.fragment_now_playing.*
-import java.util.ArrayList
 import kotlin.random.Random
 
 class NowPlayingFragment : Fragment() {
